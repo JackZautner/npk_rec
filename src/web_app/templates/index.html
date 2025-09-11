@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Table</title>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/2.0.8/css/dataTables.dataTables.min.css">
+    <script type="text/javascript" charset="utf8" src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/2.0.8/js/dataTables.min.js"></script>
+</head>
+<body>
+    <h1>My plants</h1>
+    <table id="myTable" class="display">
+        <thead>
+            <tr>
+                <th>Plant</th>
+                <th>NPK Ratio</th>
+                <th>Ideal NPK Ratio</th>
+                <th>Fetch data</th> <!-- Queries AWS backend -->
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in data %}
+            <tr>
+                <td>
+                    <select class="plant-dropdown" data-id="{{ item.plant }}">
+                        <option value="Basil" {% if item.plant == "Basil" %}selected{% endif %}>Basil</option>
+                        <option value="Tomato" {% if item.plant == "Tomato" %}selected{% endif %}>Tomato</option>
+                        <option value="Parsley" {% if item.plant == "Parsley" %}selected{% endif %}>Parsley</option>
+                    </select>
+                </td>
+                <td>{{ item.npk }}</td>
+                <td>{{ item.opt_npk }}</td>
+                <td>
+                    <button class="aws-fetch" data-id="{{ item.plant }}">Fetch data</button>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <script>
+        $(document).ready(function() {
+            $('#myTable').DataTable();
+        });
+    </script>
+</body>
+</html>
