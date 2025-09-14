@@ -30,7 +30,7 @@
                         <option value="Cucumber" {% if item.plant == "Cucumber" %}selected{% endif %}>Cucumber</option>
                     </select>
                 </td>
-                <td>{{ item.npk }}</td>
+                <td class="actual-npk", data-id="{{ item.id }}">{{ item.npk }}</td>
                 <td class="ideal-npk" data-id="{{ item.id }}">{{ item.opt_npk }}</td>
                 <td>
                     <button class="aws-fetch" data-id="{{ item.id }}">Fetch data</button>

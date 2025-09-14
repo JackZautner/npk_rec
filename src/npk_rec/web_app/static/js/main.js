@@ -8,8 +8,6 @@ $(document).ready(function() {
     $(document).on('click', '.aws-fetch', function() {
         const plant = $(this).closest('tr').find('.plant-dropdown').val(); // Get the selected dropdown value
         const rowId = $(this).data('id');
-        console.log(`rowId = ${rowId}`);
-        console.log(`plant = ${plant}`);
         fetch('/api/fetch_data', {
             method: 'POST',
             headers: {
@@ -19,11 +17,12 @@ $(document).ready(function() {
         })
         .then(response => response.json())
         .then(data => {
-            console.log(data.optimal_npk)
             if (data.optimal_npk) {
                 // Update the "Ideal NPK Ratio" column for the corresponding plant
                 const idealNpkCell = $(`.ideal-npk[data-id="${data.plant_id}"]`);
+                const actualNpkCell = $(`.actual-npk[data-id="${data.plant_id}"]`);
                 idealNpkCell.text(data.optimal_npk); // Update the cell's text with the fetched value
+                actualNpkCell.text(data.actual_npk)
             } else {
                 alert(data.error || 'Error fetching data');
             }
@@ -35,9 +34,6 @@ $(document).ready(function() {
     $(document).on('change', '.plant-dropdown', function() {
         const newPlant = $(this).val(); // New dropdown value
         const rowId = $(this).data('id'); // Get row ID
-
-        console.log(`row ID: ${rowId}`);
-        console.log(`Plant type: ${newPlant}`);
 
         // Send updated value to the backend
         fetch('/api/update_dropdown', {
