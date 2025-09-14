@@ -10,34 +10,29 @@
     <script type="text/javascript", src="/static/js/main.js"></script>
 </head>
 <body>
-    <h1>My plants</h1>
-    <table id="myTable" class="display">
-        <thead>
-            <tr>
-                <th>Plant</th>
-                <th>NPK Ratio</th>
-                <th>Ideal NPK Ratio</th>
-                <th>Fetch data</th> <!-- Queries AWS backend -->
-            </tr>
-        </thead>
-        <tbody>
-            {% for item in data %}
-            <tr>
-                <td>
-                    <select class="plant-dropdown" data-id="{{ item.id }}">
-                        <option value="Tomato" {% if item.plant == "Tomato" %}selected{% endif %}>Tomato</option>
-                        <option value="Pepper" {% if item.plant == "Pepper" %}selected{% endif %}>Pepper</option>
-                        <option value="Cucumber" {% if item.plant == "Cucumber" %}selected{% endif %}>Cucumber</option>
-                    </select>
-                </td>
-                <td class="actual-npk", data-id="{{ item.id }}">{{ item.npk }}</td>
-                <td class="ideal-npk" data-id="{{ item.id }}">{{ item.opt_npk }}</td>
-                <td>
-                    <button class="aws-fetch" data-id="{{ item.id }}">Fetch data</button>
-                </td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+    <h1>My Plant</h1>
+    <div style="display: flex; align-items: flex-start; gap: 32px;">
+        <div style="flex: 1;">
+            <label for="plant-select">Select Plant:</label><br>
+            <select id="plant-select" class="plant-dropdown">
+                <option value="Tomato" {% if data[0].plant == "Tomato" %}selected{% endif %}>Tomato</option>
+                <option value="Pepper" {% if data[0].plant == "Pepper" %}selected{% endif %}>Pepper</option>
+                <option value="Cucumber" {% if data[0].plant == "Cucumber" %}selected{% endif %}>Cucumber</option>
+            </select>
+            <div style="margin-top: 24px; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center;">
+                <div>
+                    <strong>Actual NPK Ratio:</strong>
+                    <div class="actual-npk">{{ data[0].npk }}</div>
+                </div>
+                <div style="margin-top: 16px;">
+                    <strong>Ideal NPK Ratio:</strong>
+                    <div class="ideal-npk">{{ data[0].opt_npk }}</div>
+                </div>
+            </div>
+        </div>
+        <div style="display: flex; align-items: center; height: 100%;">
+            <button class="aws-fetch" style="height: 40px;" data-id="{{ data[0].id }}">Fetch data</button>
+        </div>
+    </div>
 </body>
 </html>

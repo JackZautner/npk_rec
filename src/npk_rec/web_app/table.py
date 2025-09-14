@@ -15,8 +15,6 @@ PLANT_DEFAULT = "PLANT"
 NPK_DEFAULT = "0-0-0"
 data = [
     {"id": 1, "plant": PLANT_DEFAULT, "npk": NPK_DEFAULT, "opt_npk": NPK_DEFAULT},
-    {"id": 2, "plant": PLANT_DEFAULT, "npk": NPK_DEFAULT, "opt_npk": NPK_DEFAULT},
-    {"id": 3, "plant": PLANT_DEFAULT, "npk": NPK_DEFAULT, "opt_npk": NPK_DEFAULT},
 ]
 
 @app.route('/')
